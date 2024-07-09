@@ -19,7 +19,7 @@ def get_credit_score_category(score):
         return "Invalid Score"
 
 # Path ke file model
-model_path = 'random_forest_model.pkl'
+model_path = '/mount/src/credit_score_prediction/random_forest_model.pkl'
 
 # Tambahkan debug print statement
 st.write("Memuat model dari path:", model_path)
