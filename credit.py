@@ -18,7 +18,7 @@ def get_credit_score_category(score):
         return "Invalid Score"
 
 # Memuat model yang telah disimpan
-model = joblib.load('random_forest_model.pkl')
+model = joblib.load('/mount/src/random_forest_model.pkl')
 
 # Judul Aplikasi
 st.title("Prediksi Skor Kredit UMKM")
