@@ -21,8 +21,16 @@ def get_credit_score_category(score):
 # Path ke file model
 model_path = 'random_forest_model.pkl'
 
+# Tambahkan debug print statement
+st.write("Memuat model dari path:", model_path)
+
 # Memuat model yang telah disimpan
-model = joblib.load(model_path)
+try:
+    model = joblib.load(model_path)
+    st.write("Model berhasil dimuat.")
+except Exception as e:
+    st.write("Gagal memuat model.")
+    st.write(e)
 
 # Judul Aplikasi
 st.title("Prediksi Skor Kredit UMKM")
@@ -243,34 +251,38 @@ if st.sidebar.button("Prediksi Skor Kredit"):
     ])
     
     # Melakukan prediksi
-    prediction = model.predict(input_df)
-    predicted_score = prediction[0]
+    try:
+        prediction = model.predict(input_df)
+        predicted_score = prediction[0]
     
-    # Menentukan kategori skor kredit
-    credit_score_category = get_credit_score_category(predicted_score)
+        # Menentukan kategori skor kredit
+        credit_score_category = get_credit_score_category(predicted_score)
     
-    # Menampilkan hasil prediksi
-    st.subheader("Hasil Prediksi")
-    st.write(f"Prediksi Skor Kredit: {predicted_score}")
-    st.write(f"Kategori Skor Kredit: {credit_score_category}")
+        # Menampilkan hasil prediksi
+        st.subheader("Hasil Prediksi")
+        st.write(f"Prediksi Skor Kredit: {predicted_score}")
+        st.write(f"Kategori Skor Kredit: {credit_score_category}")
 
-    # Ekspander untuk menampilkan input detail
-    with st.expander("Lihat Detail Input"):
-        st.write("Provinsi:", provinsi)
-        st.write("Kriteria UMKM:", kriteria_umkm)
-        st.write("Jenis UMKM:", jenis_umkm)
-        st.write("Lokasi Usaha:", lokasi_usaha)
-        st.write("Lama Usaha (Bulan):", lama_usaha)
-        st.write("Status Kepemilikan Tempat Usaha:", status_kepemilikan)
-        st.write("Jumlah Karyawan:", jumlah_karyawan)
-        st.write("Aset Usaha (IDR):", aset_usaha)
-        st.write("Jumlah Pasti Aset Usaha (IDR):", jumlah_pasti_aset_usaha)
-        st.write("Liabilitas Usaha (IDR):", liabilitas_usaha)
-        st.write("Jumlah Pasti Liabilitas Usaha (IDR):", jumlah_pasti_liabilitas_usaha)
-        st.write("Omset Bulanan (IDR):", omset_bulanan)
-        st.write("Jumlah Pasti Omset Bulanan (IDR):", jumlah_pasti_omset_bulanan)
-        st.write("Laba Bersih (IDR):", laba_bersih)
-        st.write("Jumlah Pasti Laba Bersih (IDR):", jumlah_pasti_laba_bersih)
-        st.write("Jumlah Pinjaman (IDR):", jumlah_pinjaman)
-        st.write("Jumlah Pasti Jumlah Pinjaman (IDR):", jumlah_pasti_jumlah_pinjaman)
-        st.write("Rekening Bank:", rekening_bank)
+        # Ekspander untuk menampilkan input detail
+        with st.expander("Lihat Detail Input"):
+            st.write("Provinsi:", provinsi)
+            st.write("Kriteria UMKM:", kriteria_umkm)
+            st.write("Jenis UMKM:", jenis_umkm)
+            st.write("Lokasi Usaha:", lokasi_usaha)
+            st.write("Lama Usaha (Bulan):", lama_usaha)
+            st.write("Status Kepemilikan Tempat Usaha:", status_kepemilikan)
+            st.write("Jumlah Karyawan:", jumlah_karyawan)
+            st.write("Aset Usaha (IDR):", aset_usaha)
+            st.write("Jumlah Pasti Aset Usaha (IDR):", jumlah_pasti_aset_usaha)
+            st.write("Liabilitas Usaha (IDR):", liabilitas_usaha)
+            st.write("Jumlah Pasti Liabilitas Usaha (IDR):", jumlah_pasti_liabilitas_usaha)
+            st.write("Omset Bulanan (IDR):", omset_bulanan)
+            st.write("Jumlah Pasti Omset Bulanan (IDR):", jumlah_pasti_omset_bulanan)
+            st.write("Laba Bersih (IDR):", laba_bersih)
+            st.write("Jumlah Pasti Laba Bersih (IDR):", jumlah_pasti_laba_bersih)
+            st.write("Jumlah Pinjaman (IDR):", jumlah_pinjaman)
+            st.write("Jumlah Pasti Jumlah Pinjaman (IDR):", jumlah_pasti_jumlah_pinjaman)
+            st.write("Rekening Bank:", rekening_bank)
+    except Exception as e:
+        st.write("Error saat melakukan prediksi:")
+        st.write(e)
