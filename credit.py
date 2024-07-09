@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
 # Fungsi untuk menentukan kategori skor kredit
 def get_credit_score_category(score):
@@ -17,8 +18,11 @@ def get_credit_score_category(score):
     else:
         return "Invalid Score"
 
+# Path ke file model
+model_path = 'random_forest_model.pkl'
+
 # Memuat model yang telah disimpan
-model = joblib.load('/mount/src/random_forest_model.pkl')
+model = joblib.load(model_path)
 
 # Judul Aplikasi
 st.title("Prediksi Skor Kredit UMKM")
@@ -147,7 +151,7 @@ else:  # Menengah
         'Rp2.500.000.001 - Rp10.000.000.000': 6,
         'Rp10.000.000.001 - Rp20.000.000.000': 7,
         'Rp20.000.000.001 - Rp35.000.000.000': 8,
-                'Rp35.000.000.001 - Rp50.000.000.000': 9
+        'Rp35.000.000.001 - Rp50.000.000.000': 9
     }
 
 omset_bulanan = st.sidebar.selectbox("Omset Bulanan (IDR)", list(omset_bulanan_options.keys()))
